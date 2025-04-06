@@ -2,6 +2,16 @@
 
 pathToCertPem=$1
 
+if [ -z "$pathToCertPem" ]; then
+    echo "pathToCertPem is empty" >&2
+    exit 1
+fi
+
+if [ ! -f "$pathToCertPem" ]; then
+    echo "File not found: $pathToCertPem" >&2
+    exit 1
+fi
+
 dt=$(date --date="$(openssl x509 -enddate -noout -in ${pathToCertPem} | cut -d= -f 2)" --iso-8601)
 
 dtMinus1=$(date --date="$dt - 1 days" --iso-8601)

@@ -1,11 +1,9 @@
 #!/bin/bash
+
+source "$(dirname "$0")/command-failure.sh"
+
 pathToLetsencryptDomainCertificates="$1"
 domainName="$2"
-
-commandFailure() {
-    echo -e "\e[31m$1\e[0m" >&2
-    exit 1
-}
 
 if ! command -v rename &> /dev/null; then
     commandFailure "rename command not found. Please install it."
